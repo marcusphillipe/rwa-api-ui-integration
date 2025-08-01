@@ -1,5 +1,3 @@
-import HomePage from "./homePage"
-
 class LoginPage {
     selectorsList() {
         const selectors = {
@@ -16,7 +14,7 @@ class LoginPage {
     }
 
     acessLoginPage() {
-        cy.visit(baseURL).contains('Sign in')
+        cy.visit('baseUrl').contains('Sign in')
     }
 
     loginWithCorrectCredentials(username, password) {

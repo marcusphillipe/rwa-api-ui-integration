@@ -19,7 +19,7 @@ class SignUpPage {
     }
 
     acessSignUpPage() {
-        cy.visit(baseURL).contains('Sign Up')
+        cy.visit('baseUrl').contains('Sign Up')
     }
     signUpWithCorrectCredenciais(firstName, lastName, username, password) {
         cy.get(this.selectorsList().firstNameField).type(firstName)
