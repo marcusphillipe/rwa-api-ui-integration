@@ -1,3 +1,5 @@
+import HomePage from "./homePage"
+
 class LoginPage {
     selectorsList() {
         const selectors = {
