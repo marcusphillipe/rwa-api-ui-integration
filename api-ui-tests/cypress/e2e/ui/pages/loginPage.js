@@ -14,7 +14,7 @@ class LoginPage {
     }
 
     acessLoginPage() {
-        cy.visit('baseUrl').contains('Sign in')
+        cy.visit('').contains('Sign in')
     }
 
     loginWithCorrectCredentials(username, password) {
