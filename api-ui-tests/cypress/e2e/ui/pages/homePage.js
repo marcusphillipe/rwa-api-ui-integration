@@ -1,4 +1,4 @@
-import transactionData from "../../fixtures/transactionData.json";
+import transactionData from "../fixtures/transactionData.json";
 import TransactionPage from "./transactionPage"
 
 const transactionPage = new TransactionPage
@@ -20,7 +20,7 @@ class HomePage {
     }
 
     acessHomePage() {
-        cy.visit('http://localhost:3000/').contains('Home')
+        cy.visit('').contains('Home')
     }
 
     acessTransactionPage() {
