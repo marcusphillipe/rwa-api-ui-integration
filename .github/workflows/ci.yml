@@ -5,36 +5,43 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'yarn'
 
-      - name: Install dependencies
+      - name: Install server dependencies
         working-directory: rwa-base
-        run: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: Install test dependencies
+        working-directory: api-ui-tests
+        run: yarn install --frozen-lockfile
 
       - name: Cypress Tests
         uses: cypress-io/github-action@v5
         with:
-            working-directory: api-ui-tests
-            start: yarn --cwd ../rwa-base run start:ci
-            wait-on: 'http://localhost:3000'
-            wait-on-timeout: 60
-            spec: 'tests/ui/e2e/**/*.cy.js'
+          working-directory: api-ui-tests
+          start: 'yarn --cwd ../rwa-base dev'
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+          install: false
+          spec: 'cypress/tests/ui/e2e/**/*.cy.js'
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
         if: always()
-        with: 
-            name: Cypress Result
-            path: |
-                api-ui-tests/cypress/screenshots
-                api-ui-tests/cypress/videos
-                api-ui-tests/cypress/results
-            if-no-files-found: ignore
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cypress Results
+          path: |
+            api-ui-tests/cypress/screenshots
+            api-ui-tests/cypress/videos
+            api-ui-tests/cypress/results
+          if-no-files-found: ignore
