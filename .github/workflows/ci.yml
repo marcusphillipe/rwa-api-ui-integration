@@ -32,7 +32,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           working-directory: api-ui-tests
-          start: 'yarn --cwd ../rwa-base dev'
+          start: 'yarn --cwd ../rwa-base run start:ci'
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
           install: false
